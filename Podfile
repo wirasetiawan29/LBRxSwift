@@ -7,7 +7,8 @@ target 'LBRxSwift' do
 
   # Pods for LBRxSwift
   pod 'RxSwift', '~> 4.0'
-
+  pod 'RxCocoa', '~> 4.0'
+  
   target 'LBRxSwiftTests' do
     inherit! :search_paths
     # Pods for testing

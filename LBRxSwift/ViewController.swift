@@ -38,6 +38,12 @@ class ViewController: UIViewController {
                 self?.messageLabel.text = "Hello \(character)"
             }).disposed(by: disposeBag)
         
+        updateVC.onRefreshData.subscribe(onNext: { [weak self] isRefresh in
+            if isRefresh {
+                self?.messageLabel.text = "Hello bolean"
+            }
+        }).disposed(by: disposeBag)
+        
         navigationController?.pushViewController(updateVC, animated: true)
     }
     

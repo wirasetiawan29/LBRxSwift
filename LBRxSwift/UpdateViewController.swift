@@ -8,13 +8,20 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 class UpdateViewController: UIViewController {
     
-    
-    private let selectedCharacterVar = Variable("user")
+    // MARK: observerable
+    private let selectedCharacterVar = BehaviorRelay<String>(value: "user")
+
     var selectedCharacter:Observable<String> {
         return selectedCharacterVar.asObservable()
+    }
+    
+    private let isRefreshData = BehaviorRelay<Bool>(value: false)
+    var onRefreshData:Observable<Bool> {
+        return isRefreshData.asObservable()
     }
 
     override func viewDidLoad() {
@@ -35,7 +42,14 @@ class UpdateViewController: UIViewController {
     
     @IBAction func onClickCharacter(_ sender: UIButton) {
         guard let characterName = sender.titleLabel?.text else {return}
-        selectedCharacterVar.value = characterName
+        selectedCharacterVar.accept(characterName)
+        
+        if (sender.titleLabel?.text == "🐔Chicken"){
+            isRefreshData.accept(true)
+        } else {
+            isRefreshData.accept(false)
+        }
+        
         self.navigationController?.popViewController(animated: true)
     }
     
